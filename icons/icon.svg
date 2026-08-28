@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+    <defs>
+        <linearGradient id="manabaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#6ecb3b" />
+            <stop offset="100%" stop-color="#4d9b23" />
+        </linearGradient>
+    </defs>
+    
+    <!-- Background Card (Square) -->
+    <rect x="0" y="0" width="128" height="128" fill="url(#manabaGrad)" />
+    
+    <!-- Customizer Sliders Graphic (White) -->
+    <!-- Slider Track 1 -->
+    <rect x="24" y="38" width="80" height="8" fill="#ffffff" fill-opacity="0.35" />
+    <rect x="36" y="30" width="16" height="24" fill="#ffffff" />
+    
+    <!-- Slider Track 2 -->
+    <rect x="24" y="60" width="80" height="8" fill="#ffffff" fill-opacity="0.35" />
+    <rect x="76" y="52" width="16" height="24" fill="#ffffff" />
+    
+    <!-- Slider Track 3 -->
+    <rect x="24" y="82" width="80" height="8" fill="#ffffff" fill-opacity="0.35" />
+    <rect x="52" y="74" width="16" height="24" fill="#ffffff" />
+</svg>
+

@@ -1,0 +1,391 @@
+:root {
+    /* デフォルトのライトテーマ用カラー (manaba黄緑: #5ea832ベース) */
+    --bg-page: #ffffff;
+    --bg-surface: #f8fafc;
+    --bg-card: #ffffff;
+    --border-main: #e2e8f0;
+    --border-hover: #cbd5e1;
+
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+
+    --accent-color: #5ea832;
+    --accent-color-hover: #4d8f28;
+    --accent-color-light: #eaf5e5;
+
+    --font-family:
+        "BIZ UDPGothic", "Hiragino Sans", -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* デバイス設定 (OS) がダークモードの場合のポップアップ自体のカラー調整 */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-page: #0f172a;
+        --bg-surface: #1e293b;
+        --bg-card: #1e293b;
+        --border-main: #334155;
+        --border-hover: #475569;
+
+        --text-primary: #f8fafc;
+        --text-secondary: #94a3b8;
+        --text-muted: #64748b;
+
+        --accent-color: #6ecb3b;
+        --accent-color-hover: #5ea832;
+        --accent-color-light: rgba(110, 203, 59, 0.2);
+    }
+}
+
+/* 全要素の角丸を完全排除 (スクエアデザイン) */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border-radius: 0 !important;
+}
+
+body {
+    width: 320px;
+    background-color: var(--bg-page);
+    font-family: var(--font-family);
+    color: var(--text-primary);
+    user-select: none;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.popup-container {
+    display: flex;
+    flex-direction: column;
+    padding: 14px 16px;
+    gap: 12px;
+}
+
+/* ヘッダーエリア */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-main);
+}
+
+.brand-text {
+    display: flex;
+    align-items: center;
+}
+
+.brand-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 0.2px;
+}
+
+/* メインコンテンツ */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* テーマ切り替えセグメントコントロール (スクエア) */
+.theme-segmented-control {
+    display: flex;
+    border: 1px solid var(--border-main);
+    background-color: var(--bg-surface);
+}
+
+.segment-label {
+    flex: 1;
+    cursor: pointer;
+}
+
+.segment-label input {
+    display: none;
+}
+
+.segment-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 7px 4px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: all 0.15s ease;
+    border-right: 1px solid var(--border-main);
+}
+
+.segment-label:last-child .segment-btn {
+    border-right: none;
+}
+
+.segment-btn svg {
+    width: 13px;
+    height: 13px;
+}
+
+.segment-label input:checked + .segment-btn {
+    background-color: var(--accent-color);
+    color: #ffffff;
+    font-weight: 700;
+}
+
+/* 設定項目リスト (フラットな枠囲み) */
+.settings-list {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-main);
+    padding: 2px 10px;
+}
+
+.setting-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+}
+
+.setting-item:not(:last-child) {
+    border-bottom: 1px solid var(--border-main);
+}
+
+.setting-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.setting-icon {
+    width: 22px;
+    height: 22px;
+    background-color: var(--bg-surface);
+    color: var(--accent-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-main);
+}
+
+.setting-icon svg {
+    width: 13px;
+    height: 13px;
+}
+
+.setting-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+/* スクエア型トグルスイッチ (角丸なし) */
+.square-switch {
+    position: relative;
+    display: inline-block;
+    width: 42px;
+    height: 22px;
+    flex-shrink: 0;
+}
+
+.square-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.square-slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: var(--border-main);
+    border: 1px solid var(--border-hover);
+    transition: 0.2s ease;
+}
+
+.square-slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+
+.square-switch input:checked + .square-slider {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color-hover);
+}
+
+.square-switch input:checked + .square-slider:before {
+    transform: translateX(20px);
+    background-color: #ffffff;
+}
+
+.square-switch-sm {
+    width: 34px;
+    height: 18px;
+}
+
+.square-switch-sm .square-slider:before {
+    height: 10px;
+    width: 10px;
+    left: 3px;
+    bottom: 3px;
+}
+
+.square-switch-sm input:checked + .square-slider:before {
+    transform: translateX(16px);
+}
+
+/* クイックアクションカード */
+.action-card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.action-btn {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 11.5px;
+    font-weight: 600;
+}
+
+.action-msg {
+    font-size: 11px;
+    padding: 4px 6px;
+    border: 1px solid var(--border-main);
+    background-color: var(--bg-surface);
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+/* 折りたたみカスタムCSS */
+.details-section {
+    cursor: pointer;
+    border: 1px solid var(--border-main);
+    padding: 8px 10px;
+    background-color: var(--bg-card);
+}
+
+.details-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.details-summary::-webkit-details-marker {
+    display: none;
+}
+
+.summary-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+}
+
+.summary-left svg {
+    width: 14px;
+    height: 14px;
+    stroke: var(--accent-color);
+}
+
+.summary-chevron svg {
+    width: 14px;
+    height: 14px;
+    stroke: var(--text-secondary);
+    transition: transform 0.2s ease;
+}
+
+.details-section[open] .summary-chevron svg {
+    transform: rotate(180deg);
+}
+
+.details-content {
+    margin-top: 8px;
+}
+
+.css-textarea {
+    width: 100%;
+    border: 1px solid var(--border-main);
+    padding: 6px 8px;
+    font-family: Consolas, Monaco, "Courier New", monospace;
+    font-size: 11px;
+    color: var(--text-primary);
+    background-color: var(--bg-surface);
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.css-textarea:focus {
+    border-color: var(--accent-color);
+}
+
+/* フッターとスクエアボタン */
+.footer {
+    display: flex;
+    gap: 8px;
+    padding-top: 2px;
+}
+
+.square-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 7px 10px;
+    font-size: 11px;
+    font-family: var(--font-family);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border: 1px solid transparent;
+}
+
+.square-btn svg {
+    width: 13px;
+    height: 13px;
+}
+
+.square-btn-primary {
+    flex: 1;
+    background-color: var(--accent-color);
+    color: #ffffff;
+    border-color: var(--accent-color-hover);
+}
+
+.square-btn-primary:hover {
+    background-color: var(--accent-color-hover);
+}
+
+.square-btn-accent {
+    background-color: var(--bg-card);
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.square-btn-accent:hover {
+    background-color: var(--accent-color-light);
+}
+
+.square-btn-secondary {
+    background-color: var(--bg-card);
+    border-color: var(--border-main);
+    color: var(--text-secondary);
+}
+
+.square-btn-secondary:hover {
+    background-color: var(--bg-surface);
+    border-color: var(--border-hover);
+    color: var(--text-primary);
+}

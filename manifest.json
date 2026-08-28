@@ -1,0 +1,48 @@
+{
+    "manifest_version": 3,
+    "name": "manaba Customizer",
+    "version": "1.0.0",
+    "description": "中央大学で使用されているmanabaの見た目や利便性を総合的に向上させるChrome拡張機能",
+    "icons": {
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
+    },
+    "action": {
+        "default_title": "manaba Customizer",
+        "default_popup": "src/popup/popup.html",
+        "default_icon": {
+            "16": "icons/icon16.png",
+            "48": "icons/icon48.png"
+        }
+    },
+    "options_ui": {
+        "page": "src/options/options.html",
+        "open_in_tab": true
+    },
+    "background": {
+        "service_worker": "src/background/background.js",
+        "type": "module"
+    },
+    "permissions": ["storage", "activeTab"],
+    "content_scripts": [
+        {
+            "matches": [
+                "https://gakunin-idp.c.chuo-u.ac.jp/pub/login.cgi?*",
+                "https://gakunin-idp.c.chuo-u.ac.jp/*"
+            ],
+            "js": ["src/content/login.js"],
+            "run_at": "document_idle"
+        },
+        {
+            "matches": ["https://room.chuo-u.ac.jp/ct/*"],
+            "css": ["src/content/content.css"],
+            "js": [
+                "src/utils/default_titles.js",
+                "src/content/toast.js",
+                "src/content/content.js"
+            ],
+            "run_at": "document_start"
+        }
+    ]
+}

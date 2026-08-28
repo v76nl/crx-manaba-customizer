@@ -1,0 +1,16 @@
+{
+    "name": "manaba-customizer",
+    "version": "1.0.0",
+    "description": "中央大学で使用されているmanabaの見た目や利便性を総合的に向上させるChrome拡張機能",
+    "type": "module",
+    "scripts": {
+        "format": "prettier --write \"**/*.{js,json,css,html,md}\""
+    },
+    "keywords": [
+        "chrome-extension",
+        "manaba",
+        "customizer"
+    ],
+    "author": "",
+    "license": "MIT"
+}

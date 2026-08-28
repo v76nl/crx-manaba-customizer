@@ -1,0 +1,413 @@
+:root {
+    /* デフォルトのライトテーマ用カラー (manaba黄緑ベース) */
+    --bg-page: #f8fafc;
+    --bg-surface: #ffffff;
+    --bg-card: #ffffff;
+    --border-main: #e2e8f0;
+    --border-hover: #cbd5e1;
+
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+
+    --accent-color: #5ea832;
+    --accent-color-hover: #4d8f28;
+    --accent-color-light: #eaf5e5;
+
+    --danger-color: #dc2626;
+    --danger-color-hover: #b91c1c;
+
+    --font-family:
+        "BIZ UDPGothic", "Hiragino Sans", -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-page: #0b0f17;
+        --bg-surface: #131b2a;
+        --bg-card: #131b2a;
+        --border-main: #243247;
+        --border-hover: #384b66;
+
+        --text-primary: #f8fafc;
+        --text-secondary: #94a3b8;
+        --text-muted: #64748b;
+
+        --accent-color: #6ecb3b;
+        --accent-color-hover: #5ea832;
+        --accent-color-light: rgba(110, 203, 59, 0.15);
+    }
+}
+
+/* 全要素の角丸を排除 (スクエアデザイン) */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border-radius: 0 !important;
+}
+
+body {
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-family: var(--font-family);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.app-layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ヘッダー */
+.app-header {
+    background-color: var(--bg-surface);
+    border-bottom: 2px solid var(--border-main);
+    padding: 16px 24px;
+}
+
+.header-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.brand-icon {
+    width: 38px;
+    height: 38px;
+    background-color: var(--accent-color);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.brand-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+.app-title {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+
+.app-description {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* コンテナ */
+.container {
+    max-width: 800px;
+    width: 100%;
+    margin: 24px auto 60px auto;
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* カード */
+.card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-main);
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.card-title {
+    font-size: 15px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-primary);
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-main);
+}
+
+.card-title svg {
+    width: 18px;
+    height: 18px;
+    color: var(--accent-color);
+}
+
+.card-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* フォームグループ */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group.row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0;
+}
+
+.form-group.row:not(:last-child) {
+    border-bottom: 1px solid var(--border-main);
+    padding-bottom: 12px;
+}
+
+.label-title {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.label-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* セレクトボックス */
+.square-select {
+    padding: 6px 12px;
+    border: 1px solid var(--border-main);
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+    font-family: var(--font-family);
+    font-size: 13px;
+    outline: none;
+    cursor: pointer;
+}
+
+.square-select:focus {
+    border-color: var(--accent-color);
+}
+
+/* テキストエリア・コードエディタ */
+.square-textarea,
+.square-code-editor {
+    width: 100%;
+    border: 1px solid var(--border-main);
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+    font-family: Consolas, Monaco, "Courier New", monospace;
+    font-size: 12px;
+    padding: 10px 12px;
+    outline: none;
+    resize: vertical;
+    line-height: 1.5;
+}
+
+.square-textarea:focus,
+.square-code-editor:focus {
+    border-color: var(--accent-color);
+}
+
+/* スイッチ */
+.square-switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.square-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.square-slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: var(--border-main);
+    border: 1px solid var(--border-hover);
+    transition: 0.2s ease;
+}
+
+.square-slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+
+.square-switch input:checked + .square-slider {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color-hover);
+}
+
+.square-switch input:checked + .square-slider:before {
+    transform: translateX(20px);
+}
+
+/* ボタン */
+.square-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 16px;
+    font-size: 12.5px;
+    font-family: var(--font-family);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border: 1px solid transparent;
+}
+
+.square-btn svg {
+    width: 15px;
+    height: 15px;
+}
+
+.square-btn-xs {
+    padding: 4px 8px;
+    font-size: 11px;
+}
+
+.square-btn-primary {
+    background-color: var(--accent-color);
+    color: #ffffff;
+    border-color: var(--accent-color-hover);
+}
+
+.square-btn-primary:hover {
+    background-color: var(--accent-color-hover);
+}
+
+.square-btn-secondary {
+    background-color: var(--bg-surface);
+    border-color: var(--border-main);
+    color: var(--text-primary);
+}
+
+.square-btn-secondary:hover {
+    background-color: var(--border-main);
+}
+
+.square-btn-danger {
+    background-color: var(--danger-color);
+    color: #ffffff;
+    border-color: var(--danger-color-hover);
+}
+
+.square-btn-danger:hover {
+    background-color: var(--danger-color-hover);
+}
+
+.button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.file-upload-label {
+    cursor: pointer;
+}
+
+/* 科目名リスト表示 */
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.subject-titles-container {
+    max-height: 220px;
+    overflow-y: auto;
+    border: 1px solid var(--border-main);
+    background-color: var(--bg-surface);
+}
+
+.subject-item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    font-size: 12px;
+    border-bottom: 1px solid var(--border-main);
+}
+
+.subject-item-row:last-child {
+    border-bottom: none;
+}
+
+.subject-key {
+    font-family: Consolas, monospace;
+    color: var(--text-secondary);
+}
+
+.subject-val {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-left: 8px;
+}
+
+.subject-delete-btn {
+    padding: 2px 6px;
+    font-size: 11px;
+    cursor: pointer;
+    background-color: transparent;
+    color: var(--danger-color);
+    border: 1px solid var(--danger-color);
+}
+
+.subject-delete-btn:hover {
+    background-color: var(--danger-color);
+    color: #ffffff;
+}
+
+.empty-state {
+    padding: 20px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 12.5px;
+}
+
+/* トースト通知 */
+.square-toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background-color: #1e293b;
+    color: #ffffff;
+    padding: 10px 18px;
+    font-size: 13px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.2s ease;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.square-toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}

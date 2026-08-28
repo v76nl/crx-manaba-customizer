@@ -1,0 +1,46 @@
+/* manaba-customizer: コンテンツスクリプト用スタイル定義 */
+
+/* 1. 回答フォーム外観調整 */
+html.manaba-enhance-forms div.form .report-form {
+    width: 92% !important;
+}
+
+html.manaba-enhance-forms .form textarea {
+    width: 100% !important;
+    font-size: 1.25em !important;
+    line-height: 1.6 !important;
+    background-color: #fdfdfd;
+    padding: 8px 12px;
+    box-sizing: border-box;
+}
+
+html.manaba-enhance-forms .queryinput {
+    width: 100% !important;
+}
+
+/* 2. 時間割の土曜日非表示 */
+html.manaba-remove-saturday
+    #courselistweekly
+    > table
+    > tbody
+    > tr
+    > *:nth-child(7) {
+    opacity: 0 !important;
+    display: none !important;
+}
+
+/* 3. 誤答選択問題の強調表示 */
+.manaba-customizer-highlight {
+    background-color: #fef08a !important;
+    color: #000000 !important;
+    font-weight: 700 !important;
+    padding: 1px 4px !important;
+    border-bottom: 2px solid #eab308 !important;
+}
+
+/* 4. 科目名編集モードのホバー表示 */
+.manaba-edit-subject-hover {
+    outline: 2px dashed #5ea832 !important;
+    background-color: rgba(94, 168, 50, 0.2) !important;
+    cursor: pointer !important;
+}
