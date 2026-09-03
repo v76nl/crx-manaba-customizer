@@ -8,8 +8,6 @@ import {
 document.addEventListener("DOMContentLoaded", async () => {
     // UI要素の取得
     const enabledInput = document.getElementById("enabled");
-    const themeRadios = document.querySelectorAll('input[name="themeMode"]');
-    const autoLoginInput = document.getElementById("autoLogin");
     const enhanceFormsInput = document.getElementById("enhanceForms");
     const highlightNegativeWordsInput = document.getElementById(
         "highlightNegativeWords"
@@ -35,11 +33,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     function updateUI(settings) {
         enabledInput.checked = Boolean(settings.enabled);
 
-        themeRadios.forEach((radio) => {
-            radio.checked = radio.value === settings.themeMode;
-        });
-
-        autoLoginInput.checked = Boolean(settings.autoLogin);
         enhanceFormsInput.checked = Boolean(settings.enhanceForms);
         highlightNegativeWordsInput.checked = Boolean(
             settings.highlightNegativeWords
@@ -66,7 +59,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     // チェックボックスイベント
     const checkboxMap = [
         { input: enabledInput, key: "enabled" },
-        { input: autoLoginInput, key: "autoLogin" },
         { input: enhanceFormsInput, key: "enhanceForms" },
         { input: highlightNegativeWordsInput, key: "highlightNegativeWords" },
         { input: enableReplacementsInput, key: "enableReplacements" },
@@ -79,15 +71,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     checkboxMap.forEach(({ input, key }) => {
         input.addEventListener("change", () => {
             handleSettingChange(key, input.checked);
-        });
-    });
-
-    // テーマ選択イベント
-    themeRadios.forEach((radio) => {
-        radio.addEventListener("change", () => {
-            if (radio.checked) {
-                handleSettingChange("themeMode", radio.value);
-            }
         });
     });
 

@@ -3,34 +3,28 @@ export const DEFAULT_SETTINGS = {
     // 拡張機能全体の有効/無効
     enabled: true,
 
-    // テーマ設定 ("system": デバイス設定連動, "light": ライト固定, "dark": ダーク固定)
-    themeMode: "system",
-
-    // 1. manaba自動ログイン（学認認証）
-    autoLogin: true,
-
-    // 2. 回答フォーム外観調整
+    // 1. 回答フォーム外観調整
     enhanceForms: true,
 
-    // 3. 誤答選択問題の強調表示
+    // 2. 誤答選択問題の強調表示
     highlightNegativeWords: true,
     highlightWords: "誤っている\n誤り\n間違っている\n間違い",
 
-    // 4. 任意文字列の置換
+    // 3. 任意文字列の置換
     enableReplacements: true,
     replacements: {},
 
-    // 5. わかりやすいタブタイトル
+    // 4. わかりやすいタブタイトル
     renameTabTitle: true,
 
-    // 6. 時間割の土曜日非表示
+    // 5. 時間割の土曜日非表示
     removeSaturday: true,
 
-    // 7. 科目名のカスタム表示・編集
+    // 6. 科目名のカスタム表示・編集
     enableSubjectTitles: true,
     subjectTitles: {},
 
-    // 8. シラバス検索リンクの追加
+    // 7. シラバス検索リンクの追加
     addSyllabusLink: true,
 
     // ユーザー定義カスタムCSS

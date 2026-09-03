@@ -8,8 +8,6 @@ import {
 document.addEventListener("DOMContentLoaded", async () => {
     // UI要素の取得
     const optEnabled = document.getElementById("optEnabled");
-    const optThemeMode = document.getElementById("optThemeMode");
-    const optAutoLogin = document.getElementById("optAutoLogin");
     const optEnhanceForms = document.getElementById("optEnhanceForms");
     const optRenameTabTitle = document.getElementById("optRenameTabTitle");
     const optRemoveSaturday = document.getElementById("optRemoveSaturday");
@@ -114,8 +112,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     // 全UIの更新
     function updateUI(settings) {
         optEnabled.checked = Boolean(settings.enabled);
-        optThemeMode.value = settings.themeMode || "system";
-        optAutoLogin.checked = Boolean(settings.autoLogin);
         optEnhanceForms.checked = Boolean(settings.enhanceForms);
         optRenameTabTitle.checked = Boolean(settings.renameTabTitle);
         optRemoveSaturday.checked = Boolean(settings.removeSaturday);
@@ -143,8 +139,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     // トグル・セレクトボックスのリスナー登録
     const formBindings = [
         { el: optEnabled, key: "enabled", isCheck: true },
-        { el: optThemeMode, key: "themeMode", isCheck: false },
-        { el: optAutoLogin, key: "autoLogin", isCheck: true },
         { el: optEnhanceForms, key: "enhanceForms", isCheck: true },
         { el: optRenameTabTitle, key: "renameTabTitle", isCheck: true },
         { el: optRemoveSaturday, key: "removeSaturday", isCheck: true },

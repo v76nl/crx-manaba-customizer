@@ -27,14 +27,6 @@
     "permissions": ["storage", "activeTab"],
     "content_scripts": [
         {
-            "matches": [
-                "https://gakunin-idp.c.chuo-u.ac.jp/pub/login.cgi?*",
-                "https://gakunin-idp.c.chuo-u.ac.jp/*"
-            ],
-            "js": ["src/content/login.js"],
-            "run_at": "document_idle"
-        },
-        {
             "matches": ["https://room.chuo-u.ac.jp/ct/*"],
             "css": ["src/content/content.css"],
             "js": [

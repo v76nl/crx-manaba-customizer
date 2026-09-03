@@ -2,8 +2,6 @@
     // デフォルト設定
     const DEFAULT_SETTINGS = {
         enabled: true,
-        themeMode: "system",
-        autoLogin: true,
         enhanceForms: true,
         highlightNegativeWords: true,
         highlightWords: "誤っている\n誤り\n間違っている\n間違い",
