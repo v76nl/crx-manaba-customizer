@@ -8,6 +8,7 @@
 1. [インストール手順](#インストール手順)
 2. [機能一覧](#機能一覧)
 3. [構造](#構造)
+4. [ライセンス](#ライセンス)
 
 ## インストール手順
 
@@ -59,6 +60,7 @@ ZIPファイルは、複数のプログラムファイルを1つにまとめた�
 
 ```text
 manaba-customizer/
+├── LICENSE                  - MITライセンス条文
 ├── manifest.json            - 拡張機能マニフェスト (Manifest V3)
 ├── package.json             - パッケージ情報
 ├── .gitignore
@@ -88,3 +90,7 @@ manaba-customizer/
         ├── options.css      - 詳細設定用スタイル
         └── options.js       - 詳細設定・インポート/エクスポート処理
 ```
+
+## ライセンス
+
+このプロジェクトは [MIT License](LICENSE) のもとで公開されています。
