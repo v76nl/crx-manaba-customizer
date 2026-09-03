@@ -13,6 +13,7 @@
         removeSaturday: true,
         enableSubjectTitles: true,
         subjectTitles: {},
+        addSyllabusLink: true,
         customCss: ""
     };
 
@@ -233,6 +234,106 @@
         });
     }
 
+    // 6. シラバス検索リンクの追加
+    function applySyllabusLink() {
+        const existingLink = document.querySelector(".manaba-syllabus-link");
+
+        if (!currentSettings.enabled || !currentSettings.addSyllabusLink) {
+            if (existingLink) existingLink.remove();
+            return;
+        }
+
+        // コースページ以外では処理を行わない
+        if (!location.pathname.includes("/ct/course_")) return;
+
+        // コース名コンテナの取得
+        const courseNameContainer =
+            document.querySelector(
+                "#container > div.pagebody > div > div.pageheader-course.pageheader-courseV2 > div > div.pageheader-course-coursename"
+            ) || document.querySelector("div.pageheader-course-coursename");
+
+        if (!courseNameContainer) return;
+
+        // 担当教員名要素の取得
+        const teacherEl =
+            document.querySelector(
+                "#container > div.pagebody > div > div.pageheader-course.pageheader-courseV2 > div > div.pageheader-course-courseteacher > span.courseteacher-name > span"
+            ) ||
+            document.querySelector(
+                "div.pageheader-course-courseteacher span.courseteacher-name > span"
+            );
+
+        // 講義名の抽出（シラバスリンク自身は除外）
+        function extractCourseName(container) {
+            const courseA = container.querySelector("a#coursename");
+            if (courseA) {
+                return courseA.textContent.trim();
+            }
+            const clone = container.cloneNode(true);
+            const linkInClone = clone.querySelector(".manaba-syllabus-link");
+            if (linkInClone) linkInClone.remove();
+            return clone.textContent.trim();
+        }
+
+        const courseName = extractCourseName(courseNameContainer);
+        const teacherName = teacherEl ? teacherEl.textContent.trim() : "";
+
+        function createSyllabusUrl(cName, tName) {
+            const params = new URLSearchParams({
+                search: "search",
+                ranking: "ranking",
+                ju_kamoku: cName,
+                ju_kyouin: tName,
+                kana: "",
+                k_code: "",
+                gakki: "",
+                free_word: ""
+            });
+            return `https://syllabus.chuo-u.ac.jp/syllabus/conditions-result/?${params.toString()}`;
+        }
+
+        const targetUrl = createSyllabusUrl(courseName, teacherName);
+
+        // コースコード要素（.coursecode）があればその右隣に追加、なければコース名コンテナに追加
+        const courseCodeEl = courseNameContainer.querySelector(".coursecode");
+        const targetParent = courseCodeEl || courseNameContainer;
+
+        if (existingLink) {
+            if (existingLink.href !== targetUrl) {
+                existingLink.href = targetUrl;
+            }
+            if (existingLink.parentElement !== targetParent) {
+                targetParent.appendChild(existingLink);
+            }
+            return;
+        }
+
+        const link = document.createElement("a");
+        link.className = "manaba-syllabus-link";
+        link.textContent = "シラバス検索";
+        link.href = targetUrl;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.title = "シラバス検索を開く";
+
+        link.addEventListener("click", () => {
+            const latestCourse = extractCourseName(courseNameContainer);
+            const latestTeacherEl =
+                document.querySelector(
+                    "#container > div.pagebody > div > div.pageheader-course.pageheader-courseV2 > div > div.pageheader-course-courseteacher > span.courseteacher-name > span"
+                ) ||
+                document.querySelector(
+                    "div.pageheader-course-courseteacher span.courseteacher-name > span"
+                );
+            const latestTeacher = latestTeacherEl
+                ? latestTeacherEl.textContent.trim()
+                : "";
+            link.href = createSyllabusUrl(latestCourse, latestTeacher);
+        });
+
+        targetParent.appendChild(link);
+    }
+
     // すべての動的変更を適用
     function applyAll() {
         applyStyles();
@@ -241,6 +342,7 @@
             applySubjectTitles();
             applyReplacements(document.body);
             applyNegativeHighlight(document.body);
+            applySyllabusLink();
         }
     }
 
@@ -262,6 +364,7 @@
                 applySubjectTitles();
                 applyReplacements(document.body);
                 applyNegativeHighlight(document.body);
+                applySyllabusLink();
             });
             observer.observe(document.body, { childList: true, subtree: true });
         }

@@ -30,6 +30,9 @@ export const DEFAULT_SETTINGS = {
     enableSubjectTitles: true,
     subjectTitles: {},
 
+    // 8. シラバス検索リンクの追加
+    addSyllabusLink: true,
+
     // ユーザー定義カスタムCSS
     customCss: ""
 };

@@ -44,3 +44,28 @@ html.manaba-remove-saturday
     background-color: rgba(94, 168, 50, 0.2) !important;
     cursor: pointer !important;
 }
+
+/* 5. シラバス検索リンク (コースコードの右隣) */
+.manaba-syllabus-link {
+    display: inline-block !important;
+    font-family: inherit !important;
+    font-size: 11px !important;
+    font-size: inherit !important;
+    font-weight: 500;
+    margin-left: 10px !important;
+    padding: 0 !important;
+    color: #2449a8 !important;
+    background: transparent !important;
+    border: none !important;
+    text-decoration: none !important;
+    cursor: pointer;
+    line-height: inherit !important;
+    vertical-align: baseline !important;
+    transition: opacity 0.15s ease;
+}
+
+.manaba-syllabus-link:hover {
+    opacity: 0.75;
+    color: #2449a8 !important;
+    text-decoration: none !important;
+}

@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const optEnhanceForms = document.getElementById("optEnhanceForms");
     const optRenameTabTitle = document.getElementById("optRenameTabTitle");
     const optRemoveSaturday = document.getElementById("optRemoveSaturday");
+    const optAddSyllabusLink = document.getElementById("optAddSyllabusLink");
     const optHighlightNegativeWords = document.getElementById(
         "highlightNegativeWords"
     );
@@ -118,6 +119,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         optEnhanceForms.checked = Boolean(settings.enhanceForms);
         optRenameTabTitle.checked = Boolean(settings.renameTabTitle);
         optRemoveSaturday.checked = Boolean(settings.removeSaturday);
+        optAddSyllabusLink.checked = Boolean(settings.addSyllabusLink);
         optHighlightNegativeWords.checked = Boolean(
             settings.highlightNegativeWords
         );
@@ -146,6 +148,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         { el: optEnhanceForms, key: "enhanceForms", isCheck: true },
         { el: optRenameTabTitle, key: "renameTabTitle", isCheck: true },
         { el: optRemoveSaturday, key: "removeSaturday", isCheck: true },
+        { el: optAddSyllabusLink, key: "addSyllabusLink", isCheck: true },
         {
             el: optHighlightNegativeWords,
             key: "highlightNegativeWords",
