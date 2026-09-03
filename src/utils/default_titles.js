@@ -1,5 +1,5 @@
 // デフォルトの置換対象となる科目名リスト（ゼミ等）
-export const DEFAULT_SUBJECT_TITLES = {
+const DEFAULT_SUBJECT_TITLES = {
     course_6346325: "岡嶋ゼミ",
     course_6414125: "角田ゼミ",
     course_6346328: "小花ゼミ",
@@ -20,7 +20,10 @@ export const DEFAULT_SUBJECT_TITLES = {
     course_6351261: "渡部ゼミ"
 };
 
-// コンテキストに応じてグローバルスコープにも公開
+// グローバルスコープに公開
 if (typeof window !== "undefined") {
     window.DEFAULT_SUBJECT_TITLES = DEFAULT_SUBJECT_TITLES;
+}
+if (typeof globalThis !== "undefined") {
+    globalThis.DEFAULT_SUBJECT_TITLES = DEFAULT_SUBJECT_TITLES;
 }
