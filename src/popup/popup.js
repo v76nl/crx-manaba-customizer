@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const enableSubjectTitlesInput = document.getElementById(
         "enableSubjectTitles"
     );
+    const addSyllabusLinkInput = document.getElementById("addSyllabusLink");
     const customCssInput = document.getElementById("customCss");
 
     const startEditSubjectBtn = document.getElementById("startEditSubjectBtn");
@@ -49,6 +50,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         enableSubjectTitlesInput.checked = Boolean(
             settings.enableSubjectTitles
         );
+        addSyllabusLinkInput.checked = Boolean(settings.addSyllabusLink);
 
         customCssInput.value = settings.customCss || "";
     }
@@ -70,7 +72,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         { input: enableReplacementsInput, key: "enableReplacements" },
         { input: renameTabTitleInput, key: "renameTabTitle" },
         { input: removeSaturdayInput, key: "removeSaturday" },
-        { input: enableSubjectTitlesInput, key: "enableSubjectTitles" }
+        { input: enableSubjectTitlesInput, key: "enableSubjectTitles" },
+        { input: addSyllabusLinkInput, key: "addSyllabusLink" }
     ];
 
     checkboxMap.forEach(({ input, key }) => {
@@ -144,4 +147,58 @@ document.addEventListener("DOMContentLoaded", async () => {
             updateUI(currentSettings);
         }
     });
+
+    // ツールチップ初期化 (0.2秒待機で表示)
+    function initTooltips() {
+        const tooltipEl = document.getElementById("customTooltip");
+        if (!tooltipEl) return;
+
+        let showTimer = null;
+
+        document.querySelectorAll("[data-tooltip]").forEach((targetEl) => {
+            targetEl.addEventListener("mouseenter", () => {
+                const text = targetEl.getAttribute("data-tooltip");
+                if (!text) return;
+
+                clearTimeout(showTimer);
+                showTimer = setTimeout(() => {
+                    tooltipEl.textContent = text;
+                    tooltipEl.classList.add("show");
+
+                    // 位置の計算
+                    const rect = targetEl.getBoundingClientRect();
+                    const tooltipRect = tooltipEl.getBoundingClientRect();
+
+                    // 基本は要素の下側に表示。画面下端に近ければ上側に配置
+                    let top = rect.bottom + 6;
+                    if (top + tooltipRect.height > window.innerHeight - 8) {
+                        top = Math.max(8, rect.top - tooltipRect.height - 6);
+                    }
+
+                    // 水平位置: 中央揃えしつつ、左右の端からはみ出さないよう制限
+                    let left = rect.left + (rect.width - tooltipRect.width) / 2;
+                    left = Math.max(
+                        8,
+                        Math.min(
+                            left,
+                            window.innerWidth - tooltipRect.width - 8
+                        )
+                    );
+
+                    tooltipEl.style.top = `${Math.round(top)}px`;
+                    tooltipEl.style.left = `${Math.round(left)}px`;
+                }, 200); // 0.2秒 (200ms) 待機
+            });
+
+            const hide = () => {
+                clearTimeout(showTimer);
+                tooltipEl.classList.remove("show");
+            };
+
+            targetEl.addEventListener("mouseleave", hide);
+            targetEl.addEventListener("mousedown", hide);
+        });
+    }
+
+    initTooltips();
 });

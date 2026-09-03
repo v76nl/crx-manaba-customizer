@@ -331,6 +331,37 @@ body {
     border-color: var(--accent-color);
 }
 
+.footer .square-btn:hover {
+    border-color: var(--accent-color);
+}
+
+/* スクエア ツールチップ (0.2秒待機で表示) */
+.custom-tooltip {
+    position: fixed;
+    z-index: 10000;
+    max-width: 260px;
+    padding: 6px 10px;
+    background-color: #0f172a;
+    color: #f8fafc;
+    font-size: 11px;
+    line-height: 1.45;
+    border: 1px solid #334155;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.28);
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(-2px);
+    transition:
+        opacity 0.15s ease,
+        transform 0.15s ease;
+    white-space: normal;
+    word-break: break-word;
+}
+
+.custom-tooltip.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* フッターとスクエアボタン */
 .footer {
     display: flex;

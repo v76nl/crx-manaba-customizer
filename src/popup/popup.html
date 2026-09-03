@@ -21,7 +21,7 @@
                 </div>
                 <label
                     class="square-switch"
-                    title="拡張機能全体の有効/無効"
+                    data-tooltip="拡張機能全体の有効 / 無効を切り替えます"
                 >
                     <input
                         type="checkbox"
@@ -38,7 +38,7 @@
             >
                 <!-- テーマモード選択セグメントコントロール -->
                 <div class="theme-segmented-control">
-                    <label class="segment-label">
+                    <label class="segment-label" data-tooltip="システム（OS）の配色設定に自動連動します">
                         <input
                             type="radio"
                             name="themeMode"
@@ -71,12 +71,13 @@
                                     x2="12"
                                     y1="17"
                                     y2="21"
+                                    stroke-linecap="round"
                                 />
                             </svg>
                             自動
                         </span>
                     </label>
-                    <label class="segment-label">
+                    <label class="segment-label" data-tooltip="常にライトモードで表示します">
                         <input
                             type="radio"
                             name="themeMode"
@@ -104,7 +105,7 @@
                             ライト
                         </span>
                     </label>
-                    <label class="segment-label">
+                    <label class="segment-label" data-tooltip="常にダークモードで表示します">
                         <input
                             type="radio"
                             name="themeMode"
@@ -130,8 +131,8 @@
                 <!-- 設定項目リスト -->
                 <div class="settings-list">
 
-                    <!-- 学認自動ログインクリック -->
-                    <div class="setting-item">
+                    <!-- manaba自動ログイン -->
+                    <div class="setting-item" data-tooltip="認証画面 (gakunin-idp) でログインボタンを1秒後に自動クリックします">
                         <div class="setting-info">
                             <div class="setting-icon">
                                 <svg
@@ -152,7 +153,7 @@
                                     />
                                 </svg>
                             </div>
-                            <span class="setting-name">学認自動ログイン</span>
+                            <span class="setting-name">manaba自動ログイン</span>
                         </div>
                         <label class="square-switch square-switch-sm">
                             <input
@@ -164,7 +165,7 @@
                     </div>
 
                     <!-- 回答フォーム外観調整 -->
-                    <div class="setting-item">
+                    <div class="setting-item" data-tooltip="小テストやレポート等の入力欄 (textarea) やフォームを見やすく拡大・整形します">
                         <div class="setting-info">
                             <div class="setting-icon">
                                 <svg
@@ -213,7 +214,7 @@
                     </div>
 
                     <!-- 誤答選択問題の強調表示 -->
-                    <div class="setting-item">
+                    <div class="setting-item" data-tooltip="テスト等の問題文中の否定語句（「誤っている」「間違い」等）を黄色で目立たせます">
                         <div class="setting-info">
                             <div class="setting-icon">
                                 <svg
@@ -240,7 +241,7 @@
                     </div>
 
                     <!-- 任意文字列の置換 -->
-                    <div class="setting-item">
+                    <div class="setting-item" data-tooltip="設定した置換ルールに従い、本名や学籍番号等のテキストを一括置換します">
                         <div class="setting-info">
                             <div class="setting-icon">
                                 <svg
@@ -269,7 +270,7 @@
                     </div>
 
                     <!-- わかりやすいタブタイトル -->
-                    <div class="setting-item">
+                    <div class="setting-item" data-tooltip="閲覧中のコース名やシラバスに応じてブラウザのタブタイトルを分かりやすく変更します">
                         <div class="setting-info">
                             <div class="setting-icon">
                                 <svg
@@ -306,7 +307,7 @@
                     </div>
 
                     <!-- 時間割の土曜日非表示 -->
-                    <div class="setting-item">
+                    <div class="setting-item" data-tooltip="マイページの週間時間割から土曜日列を非表示にして平日を見やすく拡大します">
                         <div class="setting-info">
                             <div class="setting-icon">
                                 <svg
@@ -361,7 +362,7 @@
                     </div>
 
                     <!-- 科目名カスタム表示 -->
-                    <div class="setting-item">
+                    <div class="setting-item" data-tooltip="登録された科目名やゼミ名をページ上でカスタム表示します">
                         <div class="setting-info">
                             <div class="setting-icon">
                                 <svg
@@ -386,6 +387,34 @@
                             <span class="square-slider"></span>
                         </label>
                     </div>
+
+                    <!-- シラバス検索リンクの追加 -->
+                    <div class="setting-item" data-tooltip="コースヘッダーの講義名末尾に、講義名・教員名で直接検索できるシラバスリンクを追加します">
+                        <div class="setting-info">
+                            <div class="setting-icon">
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z" />
+                                    <path d="M6 6h10" />
+                                    <path d="M6 10h10" />
+                                </svg>
+                            </div>
+                            <span class="setting-name">シラバス検索リンクの追加</span>
+                        </div>
+                        <label class="square-switch square-switch-sm">
+                            <input
+                                type="checkbox"
+                                id="addSyllabusLink"
+                            />
+                            <span class="square-slider"></span>
+                        </label>
+                    </div>
                 </div>
 
                 <!-- 科目名編集クイック実行ボタン -->
@@ -394,7 +423,7 @@
                         type="button"
                         id="startEditSubjectBtn"
                         class="square-btn square-btn-accent action-btn"
-                        title="ページ上の科目名をクリックして直接名前を変更します"
+                        data-tooltip="ページ上の科目名を直接クリックして表示名を自由に変更・登録します"
                     >
                         <svg
                             viewBox="0 0 24 24"
@@ -417,7 +446,7 @@
                 </div>
 
                 <!-- カスタムCSS入力 (アコーディオン) -->
-                <details class="details-section">
+                <details class="details-section" data-tooltip="manabaページに適用する独自のCSSスタイルを記述します">
                     <summary class="details-summary">
                         <div class="summary-left">
                             <svg
@@ -463,7 +492,7 @@
                     type="button"
                     id="resetBtn"
                     class="square-btn square-btn-secondary"
-                    title="初期設定に戻す"
+                    data-tooltip="すべての設定を初期デフォルト値に戻します"
                 >
                     <svg
                         viewBox="0 0 24 24"
@@ -482,12 +511,20 @@
                     type="button"
                     id="openOptionsBtn"
                     class="square-btn square-btn-primary"
-                    title="詳細設定を開く"
+                    data-tooltip="詳細設定ページを開き、置換ルールや設定バックアップを管理します"
                 >
                     <span>詳細設定</span>
                 </button>
             </footer>
         </div>
+
+        <!-- フローティングツールチップ -->
+        <div
+            id="customTooltip"
+            class="custom-tooltip"
+            role="tooltip"
+            aria-hidden="true"
+        ></div>
 
         <script
             type="module"
