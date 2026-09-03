@@ -49,14 +49,10 @@ html.manaba-remove-saturday
 .manaba-syllabus-link {
     display: inline-block !important;
     font-family: inherit !important;
-    font-size: 11px !important;
     font-size: inherit !important;
     font-weight: 500;
     margin-left: 10px !important;
-    padding: 0 !important;
     color: #2449a8 !important;
-    background: transparent !important;
-    border: none !important;
     text-decoration: none !important;
     cursor: pointer;
     line-height: inherit !important;
@@ -66,6 +62,4 @@ html.manaba-remove-saturday
 
 .manaba-syllabus-link:hover {
     opacity: 0.75;
-    color: #2449a8 !important;
-    text-decoration: none !important;
 }
