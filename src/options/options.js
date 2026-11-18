@@ -12,6 +12,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const optRenameTabTitle = document.getElementById("optRenameTabTitle");
     const optRemoveSaturday = document.getElementById("optRemoveSaturday");
     const optAddSyllabusLink = document.getElementById("optAddSyllabusLink");
+    const optAutoRecoverRedirectLoop = document.getElementById(
+        "optAutoRecoverRedirectLoop"
+    );
     const optHighlightNegativeWords = document.getElementById(
         "optHighlightNegativeWords"
     );
@@ -116,6 +119,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         optRenameTabTitle.checked = Boolean(settings.renameTabTitle);
         optRemoveSaturday.checked = Boolean(settings.removeSaturday);
         optAddSyllabusLink.checked = Boolean(settings.addSyllabusLink);
+        optAutoRecoverRedirectLoop.checked = Boolean(
+            settings.autoRecoverRedirectLoop
+        );
         optHighlightNegativeWords.checked = Boolean(
             settings.highlightNegativeWords
         );
@@ -143,6 +149,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         { el: optRenameTabTitle, key: "renameTabTitle", isCheck: true },
         { el: optRemoveSaturday, key: "removeSaturday", isCheck: true },
         { el: optAddSyllabusLink, key: "addSyllabusLink", isCheck: true },
+        {
+            el: optAutoRecoverRedirectLoop,
+            key: "autoRecoverRedirectLoop",
+            isCheck: true
+        },
         {
             el: optHighlightNegativeWords,
             key: "highlightNegativeWords",

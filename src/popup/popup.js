@@ -20,6 +20,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         "enableSubjectTitles"
     );
     const addSyllabusLinkInput = document.getElementById("addSyllabusLink");
+    const autoRecoverRedirectLoopInput = document.getElementById(
+        "autoRecoverRedirectLoop"
+    );
     const customCssInput = document.getElementById("customCss");
 
     const startEditSubjectBtn = document.getElementById("startEditSubjectBtn");
@@ -44,6 +47,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             settings.enableSubjectTitles
         );
         addSyllabusLinkInput.checked = Boolean(settings.addSyllabusLink);
+        autoRecoverRedirectLoopInput.checked = Boolean(
+            settings.autoRecoverRedirectLoop
+        );
 
         customCssInput.value = settings.customCss || "";
     }
@@ -65,7 +71,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         { input: renameTabTitleInput, key: "renameTabTitle" },
         { input: removeSaturdayInput, key: "removeSaturday" },
         { input: enableSubjectTitlesInput, key: "enableSubjectTitles" },
-        { input: addSyllabusLinkInput, key: "addSyllabusLink" }
+        { input: addSyllabusLinkInput, key: "addSyllabusLink" },
+        {
+            input: autoRecoverRedirectLoopInput,
+            key: "autoRecoverRedirectLoop"
+        }
     ];
 
     checkboxMap.forEach(({ input, key }) => {

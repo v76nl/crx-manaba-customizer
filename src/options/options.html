@@ -202,6 +202,23 @@
                         </label>
                     </div>
 
+                    <!-- ログインのリダイレクトループ自動復旧 -->
+                    <div class="form-group row">
+                        <div>
+                            <label class="label-title">ログインループの自動復旧</label>
+                            <p class="label-desc">
+                                ログイン時のリダイレクトループを検知すると、SSOのセッションを削除して元のページを開き直します（再ログインが必要です）
+                            </p>
+                        </div>
+                        <label class="square-switch">
+                            <input
+                                type="checkbox"
+                                id="optAutoRecoverRedirectLoop"
+                            />
+                            <span class="square-slider"></span>
+                        </label>
+                    </div>
+
                     <!-- 誤答選択問題の強調表示 -->
                     <div class="form-group row">
                         <div>

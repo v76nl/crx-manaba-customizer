@@ -24,7 +24,11 @@
         "service_worker": "src/background/background.js",
         "type": "module"
     },
-    "permissions": ["storage", "activeTab"],
+    "permissions": ["storage", "activeTab", "cookies", "webNavigation"],
+    "host_permissions": [
+        "https://room.chuo-u.ac.jp/*",
+        "https://*.c.chuo-u.ac.jp/*"
+    ],
     "content_scripts": [
         {
             "matches": ["https://room.chuo-u.ac.jp/ct/*"],
