@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const optRemoveSaturday = document.getElementById("optRemoveSaturday");
     const optAddSyllabusLink = document.getElementById("optAddSyllabusLink");
     const optHighlightNegativeWords = document.getElementById(
-        "highlightNegativeWords"
+        "optHighlightNegativeWords"
     );
     const optHighlightWords = document.getElementById("optHighlightWords");
     const optEnableReplacements = document.getElementById(
