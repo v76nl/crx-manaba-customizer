@@ -54,6 +54,7 @@ ZIPファイルは、複数のプログラムファイルを1つにまとめた�
 | **科目名カスタム表示・編集** | `https://room.chuo-u.ac.jp/ct/*` | 画面上で科目を直接クリックして名前を変更 (ゼミ名辞書内蔵) |
 | **シラバス検索リンクの追加** | `https://room.chuo-u.ac.jp/ct/course_*` | コースヘッダーのコースコード右隣に、講義名・教員名で直接検索できるシラバスリンクを追加 |
 | **ログインループの自動復旧** | `https://room.chuo-u.ac.jp/*`, `https://gakunin-idp.c.chuo-u.ac.jp/*` | `ERR_TOO_MANY_REDIRECTS` を検知すると、SSOのセッションを削除して元のページを開き直す (再ログインが必要) |
+| **ログインの自動クリック** | `https://gakunin-idp.c.chuo-u.ac.jp/pub/login.cgi*` | ユーザー名とパスワードの入力完了を確認してからログインボタンをクリック (パスワードの保存は行わない) |
 | **カスタムCSS注入** | `https://room.chuo-u.ac.jp/ct/*` | 独自のCSSを記述してページへ注入可能 |
 | **設定バックアップ/復元** | オプション画面 | 設定内容をJSON形式でエクスポート / インポート可能 |
 
@@ -82,6 +83,7 @@ manaba-customizer/
     ├── content/
     │   ├── content.css      - フォーム拡大・土曜日削除等のスタイル
     │   ├── content.js       - メイン制御・DOM監視・科目名編集・ハイライト・シラバスリンク
+    │   ├── login.js         - 認証画面のログインボタン自動クリック
     │   └── toast.js         - 画面内トースト通知コンポーネント
     ├── popup/
     │   ├── popup.html       - 拡張機能ポップアップUI

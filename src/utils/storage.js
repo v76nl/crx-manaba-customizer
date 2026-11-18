@@ -30,6 +30,9 @@ export const DEFAULT_SETTINGS = {
     // 8. ログインのリダイレクトループ自動復旧
     autoRecoverRedirectLoop: true,
 
+    // 9. ログインボタンの自動クリック
+    autoLogin: true,
+
     // ユーザー定義カスタムCSS
     customCss: ""
 };

@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const autoRecoverRedirectLoopInput = document.getElementById(
         "autoRecoverRedirectLoop"
     );
+    const autoLoginInput = document.getElementById("autoLogin");
     const customCssInput = document.getElementById("customCss");
 
     const startEditSubjectBtn = document.getElementById("startEditSubjectBtn");
@@ -50,6 +51,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         autoRecoverRedirectLoopInput.checked = Boolean(
             settings.autoRecoverRedirectLoop
         );
+        autoLoginInput.checked = Boolean(settings.autoLogin);
 
         customCssInput.value = settings.customCss || "";
     }
@@ -75,7 +77,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         {
             input: autoRecoverRedirectLoopInput,
             key: "autoRecoverRedirectLoop"
-        }
+        },
+        { input: autoLoginInput, key: "autoLogin" }
     ];
 
     checkboxMap.forEach(({ input, key }) => {

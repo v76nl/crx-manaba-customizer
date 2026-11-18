@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const optAutoRecoverRedirectLoop = document.getElementById(
         "optAutoRecoverRedirectLoop"
     );
+    const optAutoLogin = document.getElementById("optAutoLogin");
     const optHighlightNegativeWords = document.getElementById(
         "optHighlightNegativeWords"
     );
@@ -122,6 +123,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         optAutoRecoverRedirectLoop.checked = Boolean(
             settings.autoRecoverRedirectLoop
         );
+        optAutoLogin.checked = Boolean(settings.autoLogin);
         optHighlightNegativeWords.checked = Boolean(
             settings.highlightNegativeWords
         );
@@ -154,6 +156,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             key: "autoRecoverRedirectLoop",
             isCheck: true
         },
+        { el: optAutoLogin, key: "autoLogin", isCheck: true },
         {
             el: optHighlightNegativeWords,
             key: "highlightNegativeWords",
