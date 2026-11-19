@@ -24,6 +24,7 @@ const MAX_LOG_ENTRIES = 20;
 const LOG_KEY = "redirectRecoveryLog";
 const returnUrlKey = (tabId) => `redirectRecovery:returnUrl:${tabId}`;
 const attemptsKey = (tabId) => `redirectRecovery:attempts:${tabId}`;
+const startedOnSsoKey = (tabId) => `redirectRecovery:startedOnSso:${tabId}`;
 
 // 指定条件に一致するCookieを削除し、削除したCookie名を返す
 async function removeCookies(domain, shouldRemove) {
@@ -107,6 +108,12 @@ async function recover({ tabId, url }) {
     const settings = await getSettings();
     if (!settings.enabled || !settings.autoRecoverRedirectLoop) return;
 
+    // 外部サイトから誘導されたリダイレクトではセッションを削除しない
+    const startedKey = startedOnSsoKey(tabId);
+    const { [startedKey]: startedOnSso } =
+        await chrome.storage.session.get(startedKey);
+    if (!startedOnSso) return;
+
     const attempt = await nextAttempt(tabId);
     const { host, pathname } = new URL(url);
     const logEntry = { at: new Date().toISOString(), host, pathname, attempt };
@@ -127,13 +134,26 @@ async function recover({ tabId, url }) {
 }
 
 export function registerRedirectRecovery() {
-    // 復旧後に戻れるよう、タブごとに直前のmanabaのURLを記憶する
+    // タブごとに移動の開始元と、復旧後に戻るmanabaのURLを記憶する
     chrome.webNavigation.onBeforeNavigate.addListener(
         ({ tabId, frameId, url }) => {
             if (frameId !== 0) return;
-            chrome.storage.session.set({ [returnUrlKey(tabId)]: url });
-        },
-        { url: [{ hostEquals: MANABA_HOST, pathPrefix: "/ct/" }] }
+
+            const { protocol, hostname, pathname } = new URL(url);
+            const isHttps = protocol === "https:";
+            const updates = {
+                [startedOnSsoKey(tabId)]:
+                    isHttps && [MANABA_HOST, IDP_HOST].includes(hostname)
+            };
+            if (
+                isHttps &&
+                hostname === MANABA_HOST &&
+                pathname.startsWith("/ct/")
+            ) {
+                updates[returnUrlKey(tabId)] = url;
+            }
+            chrome.storage.session.set(updates);
+        }
     );
 
     chrome.webNavigation.onErrorOccurred.addListener(
@@ -149,7 +169,8 @@ export function registerRedirectRecovery() {
     chrome.tabs.onRemoved.addListener((tabId) => {
         chrome.storage.session.remove([
             returnUrlKey(tabId),
-            attemptsKey(tabId)
+            attemptsKey(tabId),
+            startedOnSsoKey(tabId)
         ]);
     });
 }
