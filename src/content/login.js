@@ -5,16 +5,55 @@
     // ログイン失敗時に同じ内容で再送信し続けないための待機時間
     const RETRY_GUARD_MS = 60 * 1000;
     const LAST_CLICK_KEY = "manabaCustomizer:autoLoginClickedAt";
+    const CLICK_HINT_ID = "manaba-customizer-login-hint";
 
     const byId = (id) => document.getElementById(id);
     const isVisible = (el) => Boolean(el) && el.getClientRects().length > 0;
 
     let timerId = null;
+    let deadline = 0;
     let stableSince = null;
     let lastSnapshot = null;
 
+    function showClickHint() {
+        if (byId(CLICK_HINT_ID)) return;
+
+        const hint = document.createElement("div");
+        hint.id = CLICK_HINT_ID;
+        hint.setAttribute("role", "status");
+        hint.textContent = "画面をクリックするとログインします";
+        Object.assign(hint.style, {
+            position: "fixed",
+            top: "16px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: "2147483647",
+            padding: "10px 16px",
+            background: "#1f2937",
+            color: "#ffffff",
+            fontSize: "14px",
+            pointerEvents: "none"
+        });
+        document.documentElement.append(hint);
+    }
+
+    function hideClickHint() {
+        byId(CLICK_HINT_ID)?.remove();
+    }
+
+    // ブラウザの保存済みパスワードは、ページを操作するまで値を読み取れない
+    function isAwaitingClick() {
+        const password = byId("password_input");
+        return Boolean(
+            password &&
+            !password.value &&
+            password.matches(":-webkit-autofill")
+        );
+    }
+
     function stop() {
         clearInterval(timerId);
+        hideClickHint();
         document.removeEventListener("keydown", handleKeydown, true);
         document.removeEventListener("paste", stop, true);
         document.removeEventListener("submit", stop, true);
@@ -57,7 +96,17 @@
             : null;
     }
 
-    function tick(deadline) {
+    function tick() {
+        const awaitingClick = isAwaitingClick();
+        if (awaitingClick) {
+            showClickHint();
+        } else {
+            hideClickHint();
+        }
+        if (awaitingClick || document.hidden) {
+            deadline = Date.now() + WAIT_TIMEOUT_MS;
+        }
+
         if (Date.now() > deadline || hasLoginError()) {
             stop();
             return;
@@ -83,8 +132,8 @@
         document.addEventListener("paste", stop, true);
         document.addEventListener("submit", stop, true);
 
-        const deadline = Date.now() + WAIT_TIMEOUT_MS;
-        timerId = setInterval(() => tick(deadline), POLL_INTERVAL_MS);
+        deadline = Date.now() + WAIT_TIMEOUT_MS;
+        timerId = setInterval(tick, POLL_INTERVAL_MS);
     }
 
     const defaults = { enabled: true, autoLogin: true };
