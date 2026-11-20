@@ -3,6 +3,9 @@ import {
     getSettings,
     saveSettings
 } from "../utils/storage.js";
+import { registerRedirectRecovery } from "./redirect_recovery.js";
+
+registerRedirectRecovery();
 
 // 拡張機能インストール/更新時の初期化処理
 chrome.runtime.onInstalled.addListener(async (details) => {
