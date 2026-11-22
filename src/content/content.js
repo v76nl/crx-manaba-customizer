@@ -121,12 +121,20 @@
                     return;
                 }
 
-                if (regex.test(text)) {
+                // キャプチャグループで分割するため、奇数番目が一致した語句になる
+                const parts = text.split(regex);
+                if (parts.length > 1) {
                     const span = document.createElement("span");
-                    span.innerHTML = text.replace(
-                        regex,
-                        '<span class="manaba-customizer-highlight">$1</span>'
-                    );
+                    parts.forEach((part, index) => {
+                        if (index % 2 === 0) {
+                            span.append(part);
+                            return;
+                        }
+                        const highlight = document.createElement("span");
+                        highlight.className = "manaba-customizer-highlight";
+                        highlight.textContent = part;
+                        span.append(highlight);
+                    });
                     node.parentNode?.replaceChild(span, node);
                 }
             } else if (node.nodeType === Node.ELEMENT_NODE) {

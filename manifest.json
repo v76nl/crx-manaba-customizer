@@ -24,8 +24,17 @@
         "service_worker": "src/background/background.js",
         "type": "module"
     },
-    "permissions": ["storage", "activeTab"],
+    "permissions": ["storage", "activeTab", "cookies", "webNavigation"],
+    "host_permissions": [
+        "https://room.chuo-u.ac.jp/*",
+        "https://*.c.chuo-u.ac.jp/*"
+    ],
     "content_scripts": [
+        {
+            "matches": ["https://gakunin-idp.c.chuo-u.ac.jp/pub/login.cgi*"],
+            "js": ["src/content/login.js"],
+            "run_at": "document_idle"
+        },
         {
             "matches": ["https://room.chuo-u.ac.jp/ct/*"],
             "css": ["src/content/content.css"],

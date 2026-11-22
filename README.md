@@ -53,6 +53,8 @@ ZIPファイルは、複数のプログラムファイルを1つにまとめた�
 | **時間割の土曜日非表示** | `https://room.chuo-u.ac.jp/ct/*` | マイページの週間時間割から土曜日列を非表示にして平日を拡大 |
 | **科目名カスタム表示・編集** | `https://room.chuo-u.ac.jp/ct/*` | 画面上で科目を直接クリックして名前を変更 (ゼミ名辞書内蔵) |
 | **シラバス検索リンクの追加** | `https://room.chuo-u.ac.jp/ct/course_*` | コースヘッダーのコースコード右隣に、講義名・教員名で直接検索できるシラバスリンクを追加 |
+| **ログインループの自動復旧** | `https://room.chuo-u.ac.jp/*`, `https://gakunin-idp.c.chuo-u.ac.jp/*` | `ERR_TOO_MANY_REDIRECTS` を検知すると、SSOのセッションを削除して元のページを開き直す (再ログインが必要) |
+| **ログインの自動クリック** | `https://gakunin-idp.c.chuo-u.ac.jp/pub/login.cgi*` | ユーザー名とパスワードの入力完了を確認してからログインボタンをクリック。ブラウザの保存済みパスワードは、画面を1回クリックすると送信 (パスワードの保存は行わない) |
 | **カスタムCSS注入** | `https://room.chuo-u.ac.jp/ct/*` | 独自のCSSを記述してページへ注入可能 |
 | **設定バックアップ/復元** | オプション画面 | 設定内容をJSON形式でエクスポート / インポート可能 |
 
@@ -73,13 +75,15 @@ manaba-customizer/
 │   └── icon128.png
 └── src/
     ├── background/
-    │   └── background.js    - Service Worker (初期設定初期化)
+    │   ├── background.js    - Service Worker (初期設定初期化)
+    │   └── redirect_recovery.js - ログインのリダイレクトループ検知・自動復旧
     ├── utils/
     │   ├── default_titles.js - デフォルト科目置換辞書 (ゼミ等)
     │   └── storage.js       - chrome.storage アクセス共通ラッパー
     ├── content/
     │   ├── content.css      - フォーム拡大・土曜日削除等のスタイル
     │   ├── content.js       - メイン制御・DOM監視・科目名編集・ハイライト・シラバスリンク
+    │   ├── login.js         - 認証画面のログインボタン自動クリック
     │   └── toast.js         - 画面内トースト通知コンポーネント
     ├── popup/
     │   ├── popup.html       - 拡張機能ポップアップUI
