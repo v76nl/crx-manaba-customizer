@@ -21,17 +21,17 @@ Google Chrome または Microsoft Edge に拡張機能をインストールす�
 
 ### 1. 配布ファイルをダウンロードする
 
-[Releases ページ](https://github.com/v76nl/crx-manaba-customizer/releases) から、最新バージョンの **`manaba-customizer-v1.0.0.zip`** をダウンロードします。
+[Releases ページ](https://github.com/v76nl/crx-manaba-customizer/releases) から、最新バージョンの **`manaba-customizer-v1.1.0.zip`** をダウンロードします。
 
 ### 2. ZIPファイルを解凍（展開）して配置する
 
 ZIPファイルは、複数のプログラムファイルを1つにまとめた「圧縮ファイル」です。そのままではブラウザが中身を読み取れないため、中のファイルを取り出す「解凍（展開）」という操作を行います。
 
 * **Windows の場合**:
-  1. ダウンロードした `manaba-customizer-v1.0.0.zip` を右クリックし、**「すべて展開」** を選択します。
+  1. ダウンロードした `manaba-customizer-v1.1.0.zip` を右クリックし、**「すべて展開」** を選択します。
   2. 展開先を「ドキュメント」フォルダなどに指定して（例: `C:\Users\ユーザー名\Documents\ChromeExtensions\`）、「展開」をクリックします。
 * **macOS の場合**:
-  1. ダウンロードした `manaba-customizer-v1.0.0.zip` をダブルクリックすると、自動的にフォルダが解凍（展開）されます。
+  1. ダウンロードした `manaba-customizer-v1.1.0.zip` をダブルクリックすると、自動的にフォルダが解凍（展開）されます。
   2. 解凍されたフォルダを「書類（Documents）」フォルダなどへドラッグ＆ドロップして移動します。
 
 ### 3. Chrome で拡張機能を読み込む
