@@ -436,11 +436,20 @@
                 e.stopPropagation();
 
                 link.classList.remove("manaba-edit-subject-hover");
-                const href = link.getAttribute("href");
+                const href = link.getAttribute("href") || "";
+                // 投稿内のリンクなど、コース以外のURLを設定に保存しない
+                const courseMatch = href.match(/course_\d+(?=$|[/?#])/);
 
-                if (href) {
-                    const courseMatch = href.match(/course_\d+(?=$|[/?#])/);
-                    const key = courseMatch ? courseMatch[0] : href;
+                if (!courseMatch && typeof window.showToast === "function") {
+                    window.showToast(
+                        "コースへのリンクではないため、科目名を登録できません",
+                        "warning",
+                        3000
+                    );
+                }
+
+                if (courseMatch) {
+                    const key = courseMatch[0];
                     const currentName = link.textContent.trim();
 
                     const newName = prompt(

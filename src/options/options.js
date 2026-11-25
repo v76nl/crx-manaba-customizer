@@ -90,11 +90,16 @@ document.addEventListener("DOMContentLoaded", async () => {
             const row = document.createElement("div");
             row.className = "subject-item-row";
 
+            const keyEl = document.createElement("span");
+            keyEl.className = "subject-key";
+            keyEl.textContent = key;
+
+            const valEl = document.createElement("span");
+            valEl.className = "subject-val";
+            valEl.textContent = val;
+
             const info = document.createElement("div");
-            info.innerHTML = `
-                <span class="subject-key">${key}</span>:
-                <span class="subject-val">${val}</span>
-            `;
+            info.append(keyEl, ": ", valEl);
 
             const delBtn = document.createElement("button");
             delBtn.type = "button";
