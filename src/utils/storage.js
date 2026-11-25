@@ -37,6 +37,43 @@ export const DEFAULT_SETTINGS = {
     customCss: ""
 };
 
+const SUBJECT_KEY_PATTERN = /^course_\d+$/;
+
+const isPlainObject = (value) =>
+    typeof value === "object" && value !== null && !Array.isArray(value);
+
+function pickStringEntries(map, keyPattern) {
+    return Object.fromEntries(
+        Object.entries(map).filter(
+            ([key, value]) =>
+                typeof value === "string" && (!keyPattern || keyPattern.test(key))
+        )
+    );
+}
+
+// 読み込んだ設定ファイルから、既知の項目と正しい型の値だけを取り出す
+export function sanitizeImportedSettings(imported) {
+    if (!isPlainObject(imported)) {
+        throw new Error("設定ファイルの形式が正しくありません");
+    }
+
+    const settings = { ...DEFAULT_SETTINGS };
+    for (const [key, defaultValue] of Object.entries(DEFAULT_SETTINGS)) {
+        const value = imported[key];
+        if (isPlainObject(defaultValue)) {
+            if (isPlainObject(value)) {
+                settings[key] = pickStringEntries(
+                    value,
+                    key === "subjectTitles" ? SUBJECT_KEY_PATTERN : null
+                );
+            }
+        } else if (typeof value === typeof defaultValue) {
+            settings[key] = value;
+        }
+    }
+    return settings;
+}
+
 // chrome.storageから現在の設定を取得する
 export async function getSettings() {
     return new Promise((resolve) => {

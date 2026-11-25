@@ -1,7 +1,7 @@
 import {
-    DEFAULT_SETTINGS,
     getSettings,
     resetSettings,
+    sanitizeImportedSettings,
     saveSettings
 } from "../utils/storage.js";
 
@@ -90,11 +90,16 @@ document.addEventListener("DOMContentLoaded", async () => {
             const row = document.createElement("div");
             row.className = "subject-item-row";
 
+            const keyEl = document.createElement("span");
+            keyEl.className = "subject-key";
+            keyEl.textContent = key;
+
+            const valEl = document.createElement("span");
+            valEl.className = "subject-val";
+            valEl.textContent = val;
+
             const info = document.createElement("div");
-            info.innerHTML = `
-                <span class="subject-key">${key}</span>:
-                <span class="subject-val">${val}</span>
-            `;
+            info.append(keyEl, ": ", valEl);
 
             const delBtn = document.createElement("button");
             delBtn.type = "button";
@@ -229,6 +234,31 @@ document.addEventListener("DOMContentLoaded", async () => {
         showNotification("設定ファイルをエクスポートしました");
     });
 
+    // ページの表示を書き換える設定は、他人のファイルだと悪用されるため確認を求める
+    function confirmPageAlteringSettings(settings) {
+        const items = [];
+        const css = settings.customCss.trim();
+        if (css) {
+            const preview = css.length > 300 ? `${css.slice(0, 300)}…` : css;
+            items.push(`・カスタムCSS (${css.length}文字)\n${preview}`);
+        }
+        const ruleCount = Object.keys(settings.replacements).length;
+        if (ruleCount > 0) {
+            items.push(`・文字列の置換ルール (${ruleCount}件)`);
+        }
+        if (items.length === 0) return true;
+
+        return confirm(
+            [
+                "この設定ファイルには、manabaのページ表示を書き換える次の設定が含まれています。",
+                "",
+                ...items,
+                "",
+                "信頼できない人から受け取ったファイルの場合、ページの情報が外部に送信されたり、表示が偽装されたりするおそれがあります。読み込みますか？"
+            ].join("\n")
+        );
+    }
+
     // 設定のインポート
     importInput.addEventListener("change", (e) => {
         const file = e.target.files[0];
@@ -237,8 +267,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         const reader = new FileReader();
         reader.onload = async (event) => {
             try {
-                const imported = JSON.parse(event.target.result);
-                currentSettings = { ...DEFAULT_SETTINGS, ...imported };
+                const imported = sanitizeImportedSettings(
+                    JSON.parse(event.target.result)
+                );
+                if (!confirmPageAlteringSettings(imported)) return;
+
+                currentSettings = imported;
                 await saveSettings(currentSettings);
                 updateUI(currentSettings);
                 showNotification("設定を正常にインポートしました");
